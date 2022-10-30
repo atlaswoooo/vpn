@@ -2,12 +2,20 @@ package main
 
 import (
 	"fmt"
-	"runtime"
+	"log"
+	"net"
 )
 
 func main() {
 
-	os := runtime.GOOS
-	fmt.Printf("os:%+v\n", os)
-
+	interfaces, err := net.Interfaces()
+	if err != nil {
+		log.Println(err)
+		return
+	} else {
+		log.Println("niubi")
+		for _, interf := range interfaces {
+			fmt.Printf("\r\ninterf:%+v\r\n", interf)
+		}
+	}
 }

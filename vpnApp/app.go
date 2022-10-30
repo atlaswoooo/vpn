@@ -1,8 +1,10 @@
 package app
 
 import (
+	"myvpn/common/netutil"
 	config "myvpn/common/vpnConfig"
 	"myvpn/tuntap"
+	"myvpn/udp"
 
 	"github.com/net-byte/water"
 )
@@ -29,4 +31,17 @@ func NewApp(config *config.Config, version string) *AppVpn {
 func (app *AppVpn) InitConfig() {
 	app.Config.BufferSize = 64 * 1024
 	app.TunInterface = tuntap.CreateTun(*app.Config)
+	netutil.PrintStats(app.Config.Verbose)
+}
+
+//开始后台服务
+//开始后台服务
+func (app *AppVpn) StartApp() {
+
+	switch app.Config.Protocol {
+	case "udp":
+		udp.StartServer(app.TunInterface, *app.Config)
+	default:
+		udp.StartServer(app.TunInterface, *app.Config)
+	}
 }

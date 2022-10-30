@@ -2,9 +2,8 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	config "myvpn/common/vpnConfig"
-	"runtime"
+	app "myvpn/vpnApp"
 )
 
 const (
@@ -20,13 +19,11 @@ func main() {
 	flag.Parse()
 
 	//新建app实例
-	//app := app.NewApp(&config, _version)
+	app := app.NewApp(&config, _version)
 
 	//初始化app
-	//app.InitConfig()
+	app.InitConfig()
 
-	os := runtime.GOOS
-
-	fmt.Printf("os:%+v\n", os)
-
+	//开始干活
+	go app.StartApp()
 }
