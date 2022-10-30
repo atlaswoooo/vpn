@@ -30,8 +30,8 @@ func configTun(conf config.Config, tunInferface *water.Interface) {
 	//服务端分平台处理
 	os := runtime.GOOS
 	if os == "linux" {
-		netutil.ExecCmd("/sbin/ip", "link", "set", "dev", tunInferface.Name(), "mtu", strconv.Itoa(conf.MTU))
-		netutil.ExecCmd("/sbin/ip", "addr", "add", conf.CIDR, "dev", tunInferface.Name())
+		netutil.ExecCmd("/usr/sbin/ip", "link", "set", "dev", tunInferface.Name(), "mtu", strconv.Itoa(conf.MTU))
+		netutil.ExecCmd("/usr/sbin/ip", "addr", "add", conf.CIDR, "dev", tunInferface.Name())
 		//netutil.ExecCmd("/sbin/ip", "-6", "addr", "add", config.CIDRv6, "dev", iface.Name())
 		//netutil.ExecCmd("/sbin/ip", "link", "set", "dev", iface.Name(), "up")
 	}

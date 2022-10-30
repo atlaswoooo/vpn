@@ -1,6 +1,7 @@
 package netutil
 
 import (
+	"fmt"
 	"log"
 	"myvpn/common/counter"
 	"net"
@@ -12,8 +13,13 @@ import (
 // ExecuteCommand executes the given command
 // ExecuteCommand executes the given command
 func ExecCmd(c string, args ...string) string {
-	log.Printf("exec %v %v", c, args)
-	cmd := exec.Command(c, args...)
+	//需要将参数的[]给去掉
+	cc := fmt.Sprintf("%s", args)
+	cc1 := fmt.Sprintf("%s", strings.Split(cc, "[")[1])
+	cc2 := fmt.Sprintf("%s", strings.Split(cc1, "]")[0])
+
+	log.Printf("exec %v %v", c, cc2)
+	cmd := exec.Command(c, cc2)
 	out, err := cmd.Output()
 	if err != nil {
 		log.Println("failed to exec cmd:", err)
