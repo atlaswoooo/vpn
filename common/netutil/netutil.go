@@ -113,3 +113,54 @@ func PrintStats(enableVerbose bool) {
 		}
 	}()
 }
+
+// PrintErr returns the error log
+// PrintErr returns the error log
+func PrintErr(err error, enableVerbose bool) {
+	if !enableVerbose {
+		return
+	}
+	log.Printf("error:%v", err)
+}
+
+// IsIPv4 returns true if the packet is IPv4s
+// IsIPv4 returns true if the packet is IPv4s
+func IsIPv4(packet []byte) bool {
+	flag := packet[0] >> 4
+	return flag == 4
+}
+
+// GEtIPv4Dst returns the IPv4 destination address of the packet
+func GetIPv4Dst(packet []byte) net.IP {
+	return net.IPv4(packet[16], packet[17], packet[18], packet[19])
+}
+
+// GetdstKey returns the destination key of the packets
+// GetdstKey returns the destination key of the packets
+func GetDstKey(packet []byte) string {
+	key := ""
+
+	if IsIPv4(packet) && len(packet) >= 20 {
+		//To4().String()返回类型为string而不是net.IP
+		key = GetIPv4Dst(packet).To4().String()
+	}
+
+	return key
+}
+
+// GetIPv4Src returns the IPv4 source address of the packet
+// GetIPv4Src returns the IPv4 source address of the packet
+func GetIPv4Src(packet []byte) net.IP {
+	return net.IPv4(packet[12], packet[13], packet[14], packet[15])
+}
+
+// GetSrcKey returns the source key of the packet
+// GetSrcKey returns the source key of the packet
+func GetSrcKey(packet []byte) string {
+	key := ""
+	if IsIPv4(packet) && len(packet) >= 20 {
+		key = GetIPv4Src(packet).To4().String()
+	}
+
+	return key
+}

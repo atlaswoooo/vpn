@@ -1,6 +1,7 @@
 package app
 
 import (
+	"log"
 	"myvpn/common/netutil"
 	config "myvpn/common/vpnConfig"
 	"myvpn/tuntap"
@@ -44,4 +45,11 @@ func (app *AppVpn) StartApp() {
 	default:
 		udp.StartServer(app.TunInterface, *app.Config)
 	}
+}
+
+// StopApp stops the app
+func (app *AppVpn) StopApp() {
+	tuntap.ResetTun(*app.Config)
+	app.TunInterface.Close()
+	log.Println("vtun stopped")
 }

@@ -60,3 +60,9 @@ func CreateTun(conf config.Config) *water.Interface {
 
 	return tunInferface
 }
+
+// ResetTun resets the tun interface
+func ResetTun(config config.Config) {
+	// reset gateway
+	return
+}

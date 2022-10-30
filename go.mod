@@ -3,6 +3,7 @@ module myvpn
 go 1.18
 
 require (
+	github.com/golang/snappy v0.0.4 // indirect
 	github.com/inhies/go-bytesize v0.0.0-20220417184213-4913239db9cf // indirect
 	github.com/net-byte/water v0.0.7 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
